@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import io from "socket.io-client";
 
-// Use your environment variable
-const socket = io(process.env.REACT_APP_API_URL);
+// IMPORTANT: use your backend URL
+const API_URL = "https://todo-backend-tcqv.onrender.com";
+
+const socket = io(API_URL);
 
 function App() {
   const [token, setToken] = useState("");
@@ -45,12 +47,9 @@ function App() {
   }, [token]);
 
   const fetchTasks = async (jwt) => {
-    const res = await axios.get(
-      `${process.env.REACT_APP_API_URL}/api/tasks`,
-      {
-        headers: { Authorization: `Bearer ${jwt}` },
-      }
-    );
+    const res = await axios.get(`${API_URL}/api/tasks`, {
+      headers: { Authorization: `Bearer ${jwt}` },
+    });
     setTasks(res.data);
   };
 
@@ -58,14 +57,14 @@ function App() {
     if (!title.trim()) return;
     if (editingTask) {
       await axios.patch(
-        `${process.env.REACT_APP_API_URL}/api/tasks/${editingTask._id}`,
+        `${API_URL}/api/tasks/${editingTask._id}`,
         { title },
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setEditingTask(null);
     } else {
       await axios.post(
-        `${process.env.REACT_APP_API_URL}/api/tasks`,
+        `${API_URL}/api/tasks`,
         { title },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -76,7 +75,7 @@ function App() {
 
   const updateStatus = async (id, status) => {
     await axios.put(
-      `${process.env.REACT_APP_API_URL}/api/tasks/${id}`,
+      `${API_URL}/api/tasks/${id}`,
       { status },
       { headers: { Authorization: `Bearer ${token}` } }
     );
@@ -84,12 +83,9 @@ function App() {
   };
 
   const deleteTask = async (id) => {
-    await axios.delete(
-      `${process.env.REACT_APP_API_URL}/api/tasks/${id}`,
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
+    await axios.delete(`${API_URL}/api/tasks/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     fetchTasks(token);
   };
 
@@ -111,86 +107,47 @@ function App() {
 
   if (!token) {
     return (
-      <div style={styles.loginContainer}>
-        <div style={styles.loginBox}>
-          <h1 style={styles.loginHeading}>Welcome to ToDo App</h1>
-          <p style={styles.loginText}>Sign in to manage your tasks effortlessly.</p>
-          <a
-            href={`${process.env.REACT_APP_API_URL}/api/auth/google`}
-            style={styles.loginButton}
-          >
-            Sign in with Google
-          </a>
-        </div>
+      <div style={{ padding: "2rem" }}>
+        <h1>Welcome to ToDo App</h1>
+        <a href={`${API_URL}/api/auth/google`}>Sign in with Google</a>
       </div>
     );
   }
 
   return (
-    <div style={styles.container}>
-      <div style={styles.headerRow}>
-        <h1 style={styles.heading}>📝 Your Tasks</h1>
-        <button onClick={signOut} style={styles.signOutButton}>
-          Sign Out
-        </button>
-      </div>
-      <div style={styles.formRow}>
-        <input
-          placeholder="Enter task"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          style={styles.input}
-        />
-        <button onClick={addOrUpdateTask} style={styles.primaryButton}>
-          {editingTask ? "Update Task" : "Add Task"}
-        </button>
-        {editingTask && (
-          <button onClick={cancelEditing} style={styles.cancelButton}>
-            Cancel
-          </button>
-        )}
-      </div>
-
-      <ul style={styles.taskList}>
+    <div style={{ padding: "2rem" }}>
+      <h1>Your Tasks</h1>
+      <button onClick={signOut}>Sign Out</button>
+      <input
+        placeholder="Enter task"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+      />
+      <button onClick={addOrUpdateTask}>
+        {editingTask ? "Update Task" : "Add Task"}
+      </button>
+      {editingTask && <button onClick={cancelEditing}>Cancel</button>}
+      <ul>
         {tasks.map((task) => (
-          <li key={task._id} style={styles.taskItem}>
-            <div>
-              <strong>{task.title}</strong>
-              <br />
-              <small>Status: {task.status}</small>
-              <br />
-              <small>
-                Added on: {new Date(task.createdAt).toLocaleDateString()}
-              </small>
-            </div>
-            <div>
-              <button
-                onClick={() =>
-                  updateStatus(
-                    task._id,
-                    task.status === "completed" ? "in progress" : "completed"
-                  )
-                }
-                style={styles.smallButton}
-              >
-                {task.status === "completed" ? "Mark In Progress" : "Mark Completed"}
-              </button>
-              <button onClick={() => startEditing(task)} style={styles.smallButton}>
-                Edit
-              </button>
-              <button onClick={() => deleteTask(task._id)} style={styles.deleteButton}>
-                Delete
-              </button>
-            </div>
+          <li key={task._id}>
+            <span>{task.title}</span>
+            <button
+              onClick={() =>
+                updateStatus(
+                  task._id,
+                  task.status === "completed" ? "in progress" : "completed"
+                )
+              }
+            >
+              Toggle Status
+            </button>
+            <button onClick={() => startEditing(task)}>Edit</button>
+            <button onClick={() => deleteTask(task._id)}>Delete</button>
           </li>
         ))}
       </ul>
     </div>
   );
 }
-
-const styles = {
-  /* same styles as before */
-};
 
 export default App;

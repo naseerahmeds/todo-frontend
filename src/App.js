@@ -111,7 +111,7 @@ function App() {
     return (
       <div style={styles.loginContainer}>
         <div style={styles.loginBox}>
-          <h1 style={styles.loginHeading}>DoneDesk</h1>
+          <h1 style={styles.loginHeading}>Welcome To DoneDesk!</h1>
           <p style={styles.loginText}>Your place to get things done.</p>
           <a href={`${API_URL}/api/auth/google`} style={styles.loginButton}>
             Sign in with Google

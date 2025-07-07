@@ -111,7 +111,7 @@ function App() {
     return (
       <div style={styles.loginContainer}>
         <div style={styles.loginBox}>
-          <h1 style={styles.loginHeading}>Welcome to ToDo App</h1>
+          <h1 style={styles.loginHeading}>Welcome to Orchids ToDo App</h1>
           <p style={styles.loginText}>Sign in to manage your tasks effortlessly.</p>
           <a href={`${API_URL}/api/auth/google`} style={styles.loginButton}>
             Sign in with Google

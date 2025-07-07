@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import io from "socket.io-client";
 
-const socket = io(process.env.REACT_APP_API_URL);
+const socket = io(process.env.REACT_APP_API_URL, {
+  transports: ["websocket"],
+  withCredentials: true,
+});
+
 
 function App() {
   const [token, setToken] = useState("");

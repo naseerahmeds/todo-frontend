@@ -16,6 +16,15 @@
       "src": "icons8-note-32.png",
       "type": "image/png",
       "sizes": "512x512"
+    },
+    {
+      "src": "icons8-note-32.png",
+      "type": "image/png",
+      "sizes": "144x144"
+    },{
+      "src": "icons8-note-32.png",
+      "type": "image/png",
+      "sizes": "72x72"
     }
   ],
   "start_url": ".",

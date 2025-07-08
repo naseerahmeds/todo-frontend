@@ -1,5 +1,5 @@
 {
-  "short_name": "ToDo App",
+  "short_name": "DoneDesk",
   "name": "DoneDesk",
   "icons": [
     {
@@ -9,12 +9,12 @@
     },
     {
       "src": "icons8-note-32.png",
-      "type": "image/png",
+      "type": "image/x-icon",
       "sizes": "192x192"
     },
     {
       "src": "icons8-note-32.png",
-      "type": "image/png",
+      "type": "image/x-icon",
       "sizes": "512x512"
     }
   ],

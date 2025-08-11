@@ -163,7 +163,7 @@ function App() {
                 onClick={() =>
                   updateStatus(
                     task._id,
-                    task.status === "completed" ? "in progress" : "completed"
+                    task.status === "completed" ? "ToDo" : "Completed"
                   )
                 }
                 style={styles.smallButton}

@@ -57,7 +57,7 @@ function DashboardPage() {
   const handleToggleStatus = async (task) => {
     const updated = {
       ...task,
-      status: task.status === "completed" ? "in progress" : "completed"
+      status: task.status === "Completed" ? "To-Do" : "Completed"
     };
     try {
       const res = await api.put(`/tasks/${task._id}`, updated);
@@ -80,7 +80,7 @@ function DashboardPage() {
               onClick={() => handleToggleStatus(task)}
               style={{ marginLeft: "0.5rem" }}
             >
-              {task.status === "completed" ? "Mark In Progress" : "Mark Completed"}
+              {task.status === "completed" ? "Mark as Incomplete" : "Mark Completed"}
             </button>
             <button
               onClick={() => handleDelete(task._id)}

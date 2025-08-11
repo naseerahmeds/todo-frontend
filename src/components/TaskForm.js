@@ -16,7 +16,7 @@ function TaskForm({ onTaskCreated }) {
       const res = await api.post("/tasks", {
         title,
         dueDate,
-        status: "in progress",
+        status: "To-Do",
         priority: "normal"
       });
       onTaskCreated(res.data);

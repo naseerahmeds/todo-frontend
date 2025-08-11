@@ -163,12 +163,12 @@ function App() {
                 onClick={() =>
                   updateStatus(
                     task._id,
-                    task.status === "completed" ? "ToDo" : "completed"
+                    task.status === "Completed" ? "ToDo" : "Completed"
                   )
                 }
                 style={styles.smallButton}
               >
-                {task.status === "completed" ? "Mark In Progress" : "Mark Completed"}
+                {task.status === "Completed" ? "Mark In Progress" : "Mark Completed"}
               </button>
               <button onClick={() => startEditing(task)} style={styles.smallButton}>
                 Edit

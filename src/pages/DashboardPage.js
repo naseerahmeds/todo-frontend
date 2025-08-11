@@ -80,7 +80,7 @@ function DashboardPage() {
               onClick={() => handleToggleStatus(task)}
               style={{ marginLeft: "0.5rem" }}
             >
-              {task.status === "completed" ? "Mark as Incomplete" : "Mark Completed"}
+              {task.status === "Completed" ? "Mark as Incomplete" : "Mark Completed"}
             </button>
             <button
               onClick={() => handleDelete(task._id)}
